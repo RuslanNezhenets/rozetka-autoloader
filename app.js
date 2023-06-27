@@ -27,7 +27,7 @@ async function WebScrapingLocalTest() {
         options.excludeSwitches(['enable-logging'])
         driver = await new Builder()
             .forBrowser('chrome')
-            //.setChromeOptions(options)
+            .setChromeOptions(options)
             .build()
 
         await driver.get(URL)
@@ -49,6 +49,14 @@ async function WebScrapingLocalTest() {
                 await quantity.clear()
                 await quantity.sendKeys(product.quantity)
             }
+
+            console.log(
+                "Товар '" +
+                (product.name.length > 100 ? product.name.substring(0, 100) + "..." : product.name) +
+                "' добавлен в корзину",
+                product.quantity > 1 ? `в количестве ${product.quantity} штук` : ""
+            )
+
         }
         await driver.sleep(500)
     } catch (error) {
